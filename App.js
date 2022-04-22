@@ -68,7 +68,7 @@ function HomeScreen({ navigation }) {
   return (
     <View style = {styles.container}>
       <StatusBar style="auto" />          
-      <Image style = {{flex: 1, width: '100%', height: '100%', resizeMode: 'contain'}} source = {{uri: 'https://www.pngitem.com/pimgs/m/276-2761991_university-of-south-florida-transparent-university-of-south.png'}} />
+      <Image style = {{flex: 1, width: 400, height: 200, resizeMode: 'contain'}} source = {{uri: 'https://www.pngitem.com/pimgs/m/276-2761991_university-of-south-florida-transparent-university-of-south.png'}} />
       <Text style = {{ color: '#CFC493', fontSize: 32, marginTop: 20, fontFamily: 'Garamond'}}>
         Dram: All in One Cocktail App
       </Text>

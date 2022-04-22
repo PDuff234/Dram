@@ -11,24 +11,20 @@ app.use(express.json());
 
 //Creating 
 
-app.post("/todos", async (req,res) => {
+app.post("/test", async (req,res) => {
     try {
         const {description} = req.body; 
-        const newTodo = await pool.query(
-            "INSERT INTO todo (description) VALUES($1)", 
+        const newTest = await pool.query(
+            "INSERT INTO test (test) VALUES($1)", 
             [description]
-        ); 
 
-        res.json(newTodo); 
+        ); 
+        res.json(newTest); 
     } catch (err) {
         console.error(err.message); 
     }
 }); 
 
-
-
-
-
-app.listen(3001, () => {
-    console.log("Server has started on port 3001");
+app.listen(5000, () => {
+    console.log("Server has started on port 5000");
 }); 
