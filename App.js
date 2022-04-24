@@ -6,6 +6,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Button, StyleSheet, Text, View, Image, TextInput } from 'react-native';
 import InscriptionScreen from './screens/SignUpPage';
 import LoginScreen from './screens/LoginPage';
+import CustomerHome from './screens/CustomerScreen';
 
 function HomeScreen({ navigation }) {
   return (
@@ -77,7 +78,7 @@ function BartenderScreen() {
 function CustomerScreen() {
   return (
     <View style = {styles.container}>
-
+      <CustomerHome />
     </View>
   ); 
 }
@@ -85,7 +86,7 @@ function CustomerScreen() {
 function SignUpPage() {
   return (
     <View style = {styles.container}>
-
+      <InscriptionScreen />
     </View>
   ); 
 }

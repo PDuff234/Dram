@@ -1,8 +1,10 @@
 import React, { useEffect, useCallback, Fragment } from 'react';
 import { View, TextInput, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { useForm } from 'react-hook-form';
+import { useNavigation } from "@react-navigation/native"; 
 
 const InscriptionScreen = () => {
+  const navigation = useNavigation(); 
   const { register, handleSubmit, setValue } = useForm();
   const onSubmit = useCallback(formData => {
     console.log(formData);
@@ -69,7 +71,7 @@ const InscriptionScreen = () => {
           />
         </View>
         <TouchableOpacity style = {styles.loginBtn} onPress = {handleSubmit(onSubmit)}>
-            <Text style = {styles.loginText}> Sign Up! </Text>
+            <Text style = {styles.loginText}> Sign Up </Text>
         </TouchableOpacity>
     </View>
   );

@@ -2,7 +2,6 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const pool = require("./db");
-const { PlatformColor } = require("react-native");
 
 //middleware
 app.use(cors());
@@ -128,7 +127,7 @@ app.post("/register", async(req, res) => {
     }
 });
 
-//Test function to see if we can GET from database
+//Test function to see if we can GET from database 
 app.get("/test", async (req, res) => {
     try {
         const allTest = await pool.query("SELECT * FROM test"); 
