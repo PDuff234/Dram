@@ -4,65 +4,8 @@ import { StatusBar } from 'expo-status-bar';
 import { NavigationContainer } from '@react-navigation/native'; 
 import { createNativeStackNavigator } from '@react-navigation/native-stack'; 
 import { Button, StyleSheet, Text, View, Image, TextInput } from 'react-native';
-
-
-//Original Code
-/*
-export default function App() 
-{
-  return (
-    <View style = {styles.container}>
-        <StatusBar style="auto" />          
-        <Image style = {{flex: 1, width: '100%', height: '100%', resizeMode: 'contain'}} source = {{uri: 'https://www.pngitem.com/pimgs/m/276-2761991_university-of-south-florida-transparent-university-of-south.png'}} />
-        <Button 
-          title = "Bartender Login"
-          onPress = {() => navigate('Bartender')}
-        />
-        <Button
-          title = "Employee Login"
-          onPress = {() => navigate('Employee')}
-        />
-        <Button
-          title = "Customer Login"
-          onPress = {() => navigate('Customer')}
-        />
-        <Text style = {{ color: '#CFC493', fontSize: 32, marginTop: 20, fontFamily: 'garamond'}}>
-          Dram: All in One Cocktail App
-        </Text>
-        <Text style = {{ color: '#CFC493', fontSize: 20, marginTop: 6, fontFamily: 'garamond'}}>
-          Chantal Espinosa, Patrick Duffany, Mike Bodzenski
-        </Text>
-    </View>
-  );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#006747',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
-
-function inputField (props)
-{
-  const {label, placeholder, value, onChangeText} = props; 
-  return
-  (
-    <View>
-      <Text> {label} </Text>
-      <TextInput
-        placeholder = {placeholder}
-        value = {value}
-        onChangeText = {onChangeText}
-      />
-    </View>
-  );
-}
-*/
-
-//Testing code
+import InscriptionScreen from './screens/SignUpPage';
+import LoginScreen from './screens/LoginPage';
 
 function HomeScreen({ navigation }) {
   return (
@@ -72,7 +15,7 @@ function HomeScreen({ navigation }) {
       <Text style = {{ color: '#CFC493', fontSize: 32, marginTop: 20, fontFamily: 'Garamond'}}>
         Dram: All in One Cocktail App
       </Text>
-      <Text style = {{ color: '#CFC493', fontSize: 20, marginTop: 6, fontFamily: 'Garamond'}}>
+      <Text style = {{ color: '#CFC493', fontSize: 20, marginTop: 6, marginBottom: 40, fontFamily: 'Garamond'}}>
         Chantal Espinosa, Patrick Duffany, Mike Bodzenski
       </Text>     
         <Button
@@ -94,6 +37,7 @@ function HomeScreen({ navigation }) {
 function EmployeeLoginScreen() {
   return (
     <View style = {styles.container}>
+      <LoginScreen />
     </View>
   );
 }
@@ -101,6 +45,7 @@ function EmployeeLoginScreen() {
 function BartenderLoginScreen() {
   return (
     <View style = {styles.container}>
+      <LoginScreen />
     </View>
   );
 }
@@ -108,8 +53,41 @@ function BartenderLoginScreen() {
 function CustomerLoginScreen() {
   return (
     <View style = {styles.container}>
+      <LoginScreen />
     </View>
   );
+}
+
+function EmployeeScreen() {
+  return (
+    <View style = {styles.container}>
+
+    </View>
+  ); 
+}
+
+function BartenderScreen() {
+  return (
+    <View style = {styles.container}>
+
+    </View>
+  ); 
+}
+
+function CustomerScreen() {
+  return (
+    <View style = {styles.container}>
+
+    </View>
+  ); 
+}
+
+function SignUpPage() {
+  return (
+    <View style = {styles.container}>
+
+    </View>
+  ); 
 }
 
 const Stack = createNativeStackNavigator();
@@ -122,6 +100,10 @@ export default function App() {
         <Stack.Screen name="Employee Login" component={EmployeeLoginScreen} />
         <Stack.Screen name="Bartender Login" component={BartenderLoginScreen} />
         <Stack.Screen name="Customer Login" component={CustomerLoginScreen} />
+        <Stack.Screen name="Sign Up Page" component={SignUpPage} />
+        <Stack.Screen name="Employee Screen" component={EmployeeScreen} />
+        <Stack.Screen name="Bartender Screen" component={BartenderScreen} />
+        <Stack.Screen name="Customer Screen" component={CustomerScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
