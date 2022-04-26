@@ -34,11 +34,11 @@ const BartenderHome = () => {
         </thead>
         <tbody>
           {orders.map(order => (
-            <tr key={order.TransactionID}>
-              <td>{order.TransactionID}</td>
-              <td>{order.Customer}</td>
-              <td>{order.Cocktail}</td>
-              <td>{order.Instructions}</td>
+            <tr key={order.transactionid}>
+              <td>{order.transactionid}</td>
+              <td>{order.customer}</td>
+              <td>{order.cocktail}</td>
+              <td>{order.instructions}</td>
             </tr>
           ))}
         </tbody>
