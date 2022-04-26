@@ -1,94 +1,56 @@
-import { StyleSheet, Text, View, Image } from "react-native";
-import React from "react";
+import React, { Fragment, useEffect, useState } from "react";
+import { StyleSheet, View, ScrollView } from "react-native";
+import { Table, TableWrapper, Row } from 'react-native-table-component'; 
 
-const CustomerHome = (props) => {
-  const description =
-    "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. ";
+const CustomerHome = () => {
+  const [drinks, setDrinks] = useState([]);
+
+  const getDrinks = async () => {
+    try {
+      const response = await fetch("http://localhost:5000/menu");
+      const jsonData = await response.json();
+
+      setDrinks(jsonData);
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
+
+  useEffect(() => {
+    getDrinks();
+  }, []);
+
+  console.log(drinks);
 
   return (
-    <View style={styles.mainContainer}>
-      <View style={styles.homeTop}>
-        <Text style={styles.mainHeader}>Welcome to</Text>
-        <Text
-          style={[
-            styles.mainHeader,
-            {
-              fontSize: 33,
-              color: "#4c5dab",
-              marginTop: 0,
-            },
-          ]}>
-          {props.channelName}
-        </Text>
-
-        <Text style={styles.paraStyle}>{description} </Text>
-      </View>
-
-      <View style={styles.menuStyle}>
-        <View style={styles.lineStyle}></View>
-
-        <View
-          style={[
-            styles.lineStyle,
-            {
-              marginVertical: 10,
-            },
-          ]}></View>
-      </View>
+    <View style = {styles.container}>
+        
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  mainContainer: {
-    height: "100%",
-    display: "flex",
-    justifyContent: "space-between",
-    paddingHorizontal: 20,
-    backgroundColor: "#fff",
-    textAlign: "center",
-  },
-
-  homeTop: {
-    // height: "100%",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    paddingHorizontal: 10,
-  },
-
-  headerImage: {
-    height: undefined,
-    width: "100%",
-    aspectRatio: 1,
-    display: "flex",
-    alignItems: "stretch",
-    marginTop: 50,
-    borderRadius: 20,
-  },
-
-  mainHeader: {
-    fontSize: 30,
-    color: "#344055",
-    textTransform: "uppercase",
-    fontFamily: "Nunito_600SemiBold",
-  },
-
-  paraStyle: {
-    textAlign: "left",
-    fontSize: 19,
-    color: "#7d7d7d",
-    marginTop: 30,
-    paddingBottom: 50,
-    lineHeight: 26,
-    fontFamily: "JosefinSans_400Regular",
-  },
-
-  lineStyle: {
-    marginBottom: 10,
-    borderWidth: 0.5,
-    borderColor: "grey",
-  },
-});
+    container: { 
+      flex: 1, 
+      padding: 16, 
+      paddingTop: 30, 
+      backgroundColor: '#ffffff' 
+    },
+    head: { 
+      height: 50, 
+      backgroundColor: '#6F7BD9' 
+    },
+    text: { 
+      textAlign: 'center', 
+      fontWeight: '200' 
+    },
+    dataWrapper: { 
+      marginTop: -1 
+    },
+    row: { 
+      height: 40, 
+      backgroundColor: '#F7F8FA' 
+    }
+  });
 
 export default CustomerHome;

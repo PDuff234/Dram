@@ -3,7 +3,7 @@ import { View, TextInput, Text, StyleSheet, Image, TouchableOpacity } from 'reac
 import { useForm } from 'react-hook-form';
 import { useNavigation } from "@react-navigation/native"; 
 
-const InscriptionScreen = () => {
+const CustSignUp = () => {
   const navigation = useNavigation(); 
   const { register, handleSubmit, setValue } = useForm();
   const onSubmit = useCallback(formData => {
@@ -126,4 +126,4 @@ const styles = StyleSheet.create({
     }
   });
 
-export default InscriptionScreen;
+export default CustSignUp;

@@ -1,10 +1,9 @@
-import React, { useEffect, useCallback, Component } from 'react';
-import { View, TextInput, Text, StyleSheet, Image, TouchableOpacity, Touchable } from 'react-native';
+import React, { useEffect, useCallback, Fragment } from 'react';
+import { View, TextInput, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { useForm } from 'react-hook-form';
 import { useNavigation } from "@react-navigation/native"; 
-import InscriptionScreen from './SignUpPage';
 
-const LoginScreen = () => {
+const EmpSignUp = () => {
   const navigation = useNavigation(); 
   const { register, handleSubmit, setValue } = useForm();
   const onSubmit = useCallback(formData => {
@@ -27,12 +26,31 @@ const LoginScreen = () => {
   );
 
   useEffect(() => {
+    register('fname'); 
+    register('lname'); 
     register('username');
     register('password');
   }, [register]);
 
   return (
     <View style = { styles.container }>
+        <View style = {styles.inputView}>
+          <TextInput 
+              style = {styles.inputText}
+              placeholder = "First Name"
+              placeholderTextColor = "#003f5c"
+              onChangeText = {onChangeField('fname')}
+          />
+        </View>
+
+        <View style = {styles.inputView}>
+          <TextInput 
+              style = {styles.inputText}
+              placeholder = "Last Name"
+              placeholderTextColor = "#003f5c"
+              onChangeText = {onChangeField('lname')}
+          />
+        </View>
 
         <View style = {styles.inputView}>
           <TextInput 
@@ -52,17 +70,8 @@ const LoginScreen = () => {
               onChangeText = {onChangeField('password')}
           />
         </View>
-
-        <TouchableOpacity>
-          <Text style = {styles.forgot_button} onPress = {() => navigation.navigate('Sign Up Page')}> Not a user? Register Here! </Text>
-        </TouchableOpacity>
-
         <TouchableOpacity style = {styles.loginBtn} onPress = {handleSubmit(onSubmit)}>
-            <Text style = {styles.loginText}> Login </Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity style = {styles.loginBtn} onPress = {() => navigation.navigate('Customer Screen')}>
-            <Text style = {styles.loginText}> Customer Screen </Text>
+            <Text style = {styles.loginText}> Sign Up </Text>
         </TouchableOpacity>
     </View>
   );
@@ -99,7 +108,6 @@ const styles = StyleSheet.create({
     forgot_button: {
       height: 30,
       marginBottom: 30,
-      color: 'white', 
     },
    
     loginBtn: {
@@ -118,4 +126,4 @@ const styles = StyleSheet.create({
     }
   });
 
-export default LoginScreen;
+export default EmpSignUp;

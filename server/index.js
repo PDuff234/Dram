@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const pool = require("./db");
+const { pipeline } = require("stream");
 
 //middleware
 app.use(cors());
@@ -115,28 +116,117 @@ app.get("/supplies/orders", async(req, res) => {
     }
 });
 
-//Register user
+//register user
 app.post("/register", async(req, res) => {
     try {
-
-        console.log("Yeet");
-        console.log(res);  
-        //res.json(supplies.rows);
+        const { fname, lname, username, password } = req.body;
+        const newUser = await pool.query(
+            "INSERT INTO Customers (Fname, Lname, Username, Password) VALUES ($1, $2, $3, $4)",
+            [fname, lname, username, password]
+        );
+        
+        res.json(newUser);
     } catch (err) {
         console.error(err.message);
     }
 });
 
-//Test function to see if we can GET from database 
-app.get("/test", async (req, res) => {
+//create an order
+app.post("/makeOrder", async(req, res) => {
     try {
-        const allTest = await pool.query("SELECT * FROM test"); 
-        res.json(allTest.rows); 
-    } catch (err) {
-        console.error(err.message); 
-    }
-}); 
+        const { customer, cocktail, total } = req.body;
+        const order = [customer, cocktail, total];
+        const newOrder = await pool.query(
+            "INSERT INTO Orders (Customer, Cocktail, Total) VALUES($1, $2, $3)",
+            order
+        );
 
+        res.json(newOrder);
+    } catch (err) {
+        console.error(err.message);
+    }
+});
+
+//update order when served
+app.put("/order/:id", async(req, res) => {
+    try {
+        const { id } = req.params;
+        const { servedBy } = req.body;
+        const updateOrder = await pool.query(
+            "UPDATE Orders SET hasbeenserved = $1, ServedBy = $2 WHERE TransactionID = $3",
+            ["Y", servedBy, id]
+        );
+
+        res.json(updateOrder);
+    } catch (err) {
+        console.error(err.message);
+    }
+});
+
+//customer login verification
+app.post("/login/customer", async(req, res) => {
+    try {
+        const { username, password } = req.body;
+        userInput = [username, password];
+        const verifyLogin = await pool.query(
+            "SELECT Count(*) FROM customers WHERE username = $1 and password = $2;",
+            userInput
+        );
+
+        console.log(verifyLogin.rows[0].count);
+        res.json(verifyLogin.rows[0].count);
+    } catch (err) {
+        console.error(err.message);
+    }
+});
+
+
+//employee login verification
+app.post("/login/employee", async(req, res) => {
+    try {
+        const { id, password } = req.body;
+        userInput = [id, password];
+        const verifyLogin = await pool.query(
+            "SELECT Count(*) FROM employees WHERE employeeid = $1 and password = $2;",
+            userInput
+        );
+
+        console.log(verifyLogin.rows[0].count);
+        res.json(verifyLogin.rows[0].count);
+    } catch (err) {
+        console.error(err.message);
+    }
+});
+
+//add items to inventory
+app.post("/inventory/add", async(req, res) => {
+    try {
+        const { name, amount } = req.body;
+        const addInv = await pool.query(
+            "SELECT addInv($1, $2)",
+            [name, amount]
+        );
+
+        res.json(amount);
+    } catch (err) {
+        console.error(err.message);
+    }
+});
+
+//subtract items from inventory
+app.post("/inventory/sub", async(req, res) => {
+    try {
+        const { name, amount } = req.body;
+        const subInv = await pool.query(
+            "SELECT subInv($1, $2)",
+            [name, amount]
+        );
+
+        res.json(amount);
+    } catch (err) {
+        console.error(err.message);
+    }
+});
 
 app.listen(5000, () => {
     console.log("server has started on port 5000");

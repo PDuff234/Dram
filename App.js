@@ -4,9 +4,15 @@ import { StatusBar } from 'expo-status-bar';
 import { NavigationContainer } from '@react-navigation/native'; 
 import { createNativeStackNavigator } from '@react-navigation/native-stack'; 
 import { Button, StyleSheet, Text, View, Image, TextInput } from 'react-native';
-import InscriptionScreen from './screens/SignUpPage';
-import LoginScreen from './screens/LoginPage';
 import CustomerHome from './screens/CustomerScreen';
+import ListingData from './components/GetReq';
+import BartenderHome from './screens/BartenderScreen';
+import CustSignUp from './screens/SignUpPage_Customer';
+import EmpSignUp from './screens/SignUpPage_Employee';
+import BarSignUp from './screens/SignUpPage_Bartender';
+import EmpLoginScreen from './screens/LoginPage_Employee';
+import BarLoginScreen from './screens/LoginPage_Bartender';
+import CustLoginScreen from './screens/LoginPage_Customer';
 
 function HomeScreen({ navigation }) {
   return (
@@ -38,7 +44,7 @@ function HomeScreen({ navigation }) {
 function EmployeeLoginScreen() {
   return (
     <View style = {styles.container}>
-      <LoginScreen />
+      <EmpLoginScreen />
     </View>
   );
 }
@@ -46,7 +52,7 @@ function EmployeeLoginScreen() {
 function BartenderLoginScreen() {
   return (
     <View style = {styles.container}>
-      <LoginScreen />
+      <BarLoginScreen />
     </View>
   );
 }
@@ -54,7 +60,7 @@ function BartenderLoginScreen() {
 function CustomerLoginScreen() {
   return (
     <View style = {styles.container}>
-      <LoginScreen />
+      <CustLoginScreen />
     </View>
   );
 }
@@ -78,15 +84,31 @@ function BartenderScreen() {
 function CustomerScreen() {
   return (
     <View style = {styles.container}>
-      <CustomerHome />
+      <ListingData />
     </View>
   ); 
 }
 
-function SignUpPage() {
+function CustSignUpPage() {
   return (
     <View style = {styles.container}>
-      <InscriptionScreen />
+      <CustSignUp />
+    </View>
+  ); 
+}
+
+function EmpSignUpPage() {
+  return (
+    <View style = {styles.container}>
+      <EmpSignUp />
+    </View>
+  ); 
+}
+
+function BarSignUpPage() {
+  return (
+    <View style = {styles.container}>
+      <BarSignUp />
     </View>
   ); 
 }
@@ -101,7 +123,9 @@ export default function App() {
         <Stack.Screen name="Employee Login" component={EmployeeLoginScreen} />
         <Stack.Screen name="Bartender Login" component={BartenderLoginScreen} />
         <Stack.Screen name="Customer Login" component={CustomerLoginScreen} />
-        <Stack.Screen name="Sign Up Page" component={SignUpPage} />
+        <Stack.Screen name="Employee Sign Up" component={EmpSignUpPage} />
+        <Stack.Screen name="Bartender Sign Up" component={BarSignUpPage} />
+        <Stack.Screen name="Customer Sign Up" component={CustSignUpPage} />
         <Stack.Screen name="Employee Screen" component={EmployeeScreen} />
         <Stack.Screen name="Bartender Screen" component={BartenderScreen} />
         <Stack.Screen name="Customer Screen" component={CustomerScreen} />
