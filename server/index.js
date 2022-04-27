@@ -167,6 +167,7 @@ app.put("/order/:id", async(req, res) => {
 //customer login verification
 app.post("/login/customer", async(req, res) => {
     try {
+        console.log("customer tries logging in")
         const { username, password } = req.body;
         const userInput = [username, password];
         const verifyLogin = await pool.query(
