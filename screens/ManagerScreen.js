@@ -2,6 +2,7 @@ import React, { Fragment, useEffect, useState } from "react";
 
 const ManagerHome = () => {
   const [inv, setInv] = useState([]);
+  const [quantity, SetQuantity] = useState(0); 
 
   const getInv = async () => {
     try {
@@ -14,6 +15,36 @@ const ManagerHome = () => {
     }
   };
 
+  const addInventory = async e => {
+    try {
+      var payload = { "hasbeenserved": "Y", "servedBy": "12456", "transactionid": e }
+      console.log(JSON.stringify(payload)); 
+      const response = await fetch("http://localhost:5000/inventory/add", {
+        method: 'POST', 
+        headers: { "Content-Type": "application/json" }, 
+        body: JSON.stringify(payload)
+      }
+      ); 
+    } catch (err) {
+      console.log(err.message); 
+    }
+  }; 
+
+  const subInventory = async e => {
+    try {
+      var payload = { "hasbeenserved": "Y", "servedBy": "12456", "transactionid": e }
+      console.log(JSON.stringify(payload)); 
+      const response = await fetch("http://localhost:5000/inventory/sub", {
+        method: 'PUT', 
+        headers: { "Content-Type": "application/json" }, 
+        body: JSON.stringify(payload)
+      }
+      ); 
+    } catch (err) {
+      console.log(err.message); 
+    }
+  }; 
+
   useEffect(() => {
     getInv();
   }, []);
@@ -23,12 +54,15 @@ const ManagerHome = () => {
   return (
     <Fragment>
       {" "}
-      <table class="table mt-5 text-center">
+      <table className="table mt-5 text-center">
         <thead>
           <tr>
             <th>Name</th>
             <th>Quantity</th>
             <th>Type</th>
+            <th>Inventory</th>
+            <th>Add</th>
+            <th>Subtract</th>
           </tr>
         </thead>
         <tbody>
@@ -37,9 +71,19 @@ const ManagerHome = () => {
               <td>{item.name}</td>
               <td>{item.quantity}</td>
               <td>{item.type}</td>
-              <input>
-                
-              </input>
+              <td>
+                <input type="number" value={quantity} onChange={(e) => SetQuantity(e.target.value)} />
+              </td>
+              <td>
+                <button className="primary" onClick={() => completeOrder(order.transactionid)}>
+                  Add
+                </button>
+              </td>
+              <td>
+                <button className="primary" onClick={() => completeOrder(order.transactionid)}>
+                  Subtract
+                </button>
+              </td>
             </tr>
           ))}
         </tbody>
