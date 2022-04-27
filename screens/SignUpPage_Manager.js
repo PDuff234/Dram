@@ -55,7 +55,7 @@ const EmpSignUp = () => {
         <View style = {styles.inputView}>
           <TextInput 
               style = {styles.inputText}
-              placeholder = "Username"
+              placeholder = "Employee ID"
               placeholderTextColor = "#003f5c"
               onChangeText = {onChangeField('username')}
           />

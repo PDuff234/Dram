@@ -23,7 +23,7 @@ const ListingData = () => {
   return (
     <Fragment>
       {" "}
-      <table class="table mt-5 text-center">
+      <table className="table mt-5 text-center">
         <thead>
           <tr>
             <th>Name</th>
