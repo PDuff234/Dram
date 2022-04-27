@@ -243,7 +243,7 @@ app.post("/inventory/add", async(req, res) => {
             [name, amount]
         );
 
-        res.status(400).send("OK");
+        res.status(200).send("OK");
     } catch (err) {
         console.error(err.message);
     }
@@ -258,7 +258,7 @@ app.post("/inventory/sub", async(req, res) => {
             [name, amount]
         );
 
-        res.json(amount);
+        res.status(200).send("OK");
     } catch (err) {
         console.error(err.message);
     }

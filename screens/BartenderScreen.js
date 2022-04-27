@@ -1,7 +1,9 @@
 import React, { Fragment, useEffect, useState } from "react";
+import { useNavigation } from "@react-navigation/native";
 
 const BartenderHome = () => {
   const [orders, setOrders] = useState([]);
+  const navigation = useNavigation(); 
 
   const getOrders = async () => {
     try {

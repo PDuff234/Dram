@@ -1,8 +1,10 @@
 import React, { Fragment, useEffect, useState } from "react";
+import { useNavigation } from "@react-navigation/native"
 
 const ManagerHome = () => {
   const [inv, setInv] = useState([]);
   const [quantity, SetQuantity] = useState(0); 
+  const navigation = useNavigation(); 
 
   const getInv = async () => {
     try {
@@ -17,14 +19,16 @@ const ManagerHome = () => {
 
   const addInventory = async e => {
     try {
-      var payload = { "hasbeenserved": "Y", "servedBy": "12456", "transactionid": e }
+      var payload = { "name": e, "amount": quantity }
       console.log(JSON.stringify(payload)); 
       const response = await fetch("http://localhost:5000/inventory/add", {
         method: 'POST', 
-        headers: { "Content-Type": "application/json" }, 
+        headers: { Accept: "application/json", "Content-Type": "application/json" }, 
         body: JSON.stringify(payload)
       }
       ); 
+
+      navigation.push('Manager Screen'); 
     } catch (err) {
       console.log(err.message); 
     }
@@ -32,14 +36,16 @@ const ManagerHome = () => {
 
   const subInventory = async e => {
     try {
-      var payload = { "hasbeenserved": "Y", "servedBy": "12456", "transactionid": e }
+      var payload = { "name": e, "amount": quantity }
       console.log(JSON.stringify(payload)); 
       const response = await fetch("http://localhost:5000/inventory/sub", {
-        method: 'PUT', 
+        method: 'POST', 
         headers: { "Content-Type": "application/json" }, 
         body: JSON.stringify(payload)
       }
       ); 
+
+      navigation.push('Manager Screen'); 
     } catch (err) {
       console.log(err.message); 
     }
@@ -75,12 +81,12 @@ const ManagerHome = () => {
                 <input type="number" value={quantity} onChange={(e) => SetQuantity(e.target.value)} />
               </td>
               <td>
-                <button className="primary" onClick={() => completeOrder(order.transactionid)}>
+                <button className="primary" onClick={() => addInventory(item.name)}>
                   Add
                 </button>
               </td>
               <td>
-                <button className="primary" onClick={() => completeOrder(order.transactionid)}>
+                <button className="primary" onClick={() => subInventory(item.name)}>
                   Subtract
                 </button>
               </td>
