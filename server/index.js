@@ -197,11 +197,11 @@ app.post("/login/manager", async(req, res) => {
         console.log(verifyLogin.rows[0].title);
         let result = (verifyLogin.rows[0].title).toLowerCase();
         if(result == 'm'){
-            console.log("manager logged in");
+            console.log("Manager logged in");
             res.status(200).send("OK");
         } 
         else{
-            console.log("manager didn't logged in");
+            console.log("Manager didn't log in");
             res.status(400).send("Not valid credentials");
         }
     } catch (err) {
@@ -220,11 +220,11 @@ app.post("/login/bartender", async(req, res) => {
         );
         console.log(verifyLogin.rows[0].count);
         if(verifyLogin.rows[0].count == 1){
-            console.log("employee logged in");
+            console.log("Employee logged in");
             res.status(200).send("OK");
         } 
         else{
-            console.log("employee didn't logged in");
+            console.log("Employee didn't log in");
             res.status(400).send("Not valid credentials");
         }
     } catch (err) {

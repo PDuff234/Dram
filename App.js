@@ -11,7 +11,7 @@ import ListingData from './components/GetReq';
 
 import CustHomeScreen from './screens/CustomerScreen';
 import BartenderHome from './screens/BartenderScreen';
-import ManagerHome from './screens/ManagerScreen';
+import ManagerHome from './screens/ManagerScreen'; 
 
 import CustSignUp from './screens/SignUpPage_Customer';
 import EmpSignUp from './screens/SignUpPage_Manager';
@@ -40,8 +40,8 @@ function HomeScreen({ navigation }) {
           onPress={() => navigation.navigate('Bartender Login')}
         />
         <Button
-          title="Employee Login"
-          onPress={() => navigation.navigate('Employee Login')}
+          title="Manager Login"
+          onPress={() => navigation.navigate('Manager Login')}
         />
         <Button
           title="Customer Login"
@@ -131,10 +131,10 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Home">
         <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="Employee Login" component={EmployeeLoginScreen} />
+        <Stack.Screen name="Manager Login" component={EmployeeLoginScreen} />
         <Stack.Screen name="Bartender Login" component={BartenderLoginScreen} />
         <Stack.Screen name="Customer Login" component={CustomerLoginScreen} />
-        <Stack.Screen name="Employee Sign Up" component={EmpSignUpPage} />
+        <Stack.Screen name="Manager Sign Up" component={EmpSignUpPage} />
         <Stack.Screen name="Bartender Sign Up" component={BarSignUpPage} />
         <Stack.Screen name="Customer Sign Up" component={CustSignUpPage} />
         <Stack.Screen name="Manager Screen" component={ManagerScreen} />

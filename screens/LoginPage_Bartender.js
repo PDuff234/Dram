@@ -50,7 +50,7 @@ const BarLoginScreen = () => {
         <View style = {styles.inputView}>
           <TextInput 
               style = {styles.inputText}
-              placeholder = "employee id"
+              placeholder = "Employee ID"
               placeholderTextColor = "#003f5c"
               onChangeText = {onChangeField('id')}
           />

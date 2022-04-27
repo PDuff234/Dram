@@ -24,11 +24,7 @@ const CustLoginScreen = () => {
       if (response.status === 200) {
         console.log("Response is 200")
         navigation.navigate('Customer Screen');
-<<<<<<< HEAD
-        return response.json();  
-=======
         return response.json(); 
->>>>>>> 82215c05b844ceb709a5876371775eb5e34c66ca
       }
     })
   }, []);

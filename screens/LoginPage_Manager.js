@@ -11,11 +11,7 @@ const EmpLoginScreen = () => {
   const onSubmit = useCallback(formData => {
     console.log("data send: " + formData);
     
-<<<<<<< HEAD
-    fetch('http://localhost:5000/login/employee', {
-=======
     fetch('http://localhost:5000/login/manager', {
->>>>>>> 82215c05b844ceb709a5876371775eb5e34c66ca
       method: 'POST', 
       headers: {
         Accept: 'application/json', 
@@ -27,11 +23,7 @@ const EmpLoginScreen = () => {
       console.log("response: " + response);
       if (response.status === 200) {
         console.log("Response is 200")
-<<<<<<< HEAD
-        navigation.navigate('Customer Screen'); 
-=======
         navigation.navigate('Manager Screen');
->>>>>>> 82215c05b844ceb709a5876371775eb5e34c66ca
         return response.json(); 
       }
     })
@@ -57,7 +49,7 @@ const EmpLoginScreen = () => {
         <View style = {styles.inputView}>
           <TextInput 
               style = {styles.inputText}
-              placeholder = "employee id"
+              placeholder = "Employee ID"
               placeholderTextColor = "#003f5c"
               onChangeText = {onChangeField('id')}
           />
@@ -74,15 +66,15 @@ const EmpLoginScreen = () => {
         </View>
 
         <TouchableOpacity>
-          <Text style = {styles.forgot_button} onPress = {() => navigation.navigate('Employee Sign Up')}> Not a user? Register Here! </Text>
+          <Text style = {styles.forgot_button} onPress = {() => navigation.navigate('Manager Sign Up')}> Not a user? Register Here! </Text>
         </TouchableOpacity>
 
         <TouchableOpacity style = {styles.loginBtn} onPress = {handleSubmit(onSubmit)}>
             <Text style = {styles.loginText}> Login </Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style = {styles.loginBtn} onPress = {() => navigation.navigate('Customer Screen')}>
-            <Text style = {styles.loginText}> Customer Screen </Text>
+        <TouchableOpacity style = {styles.loginBtn} onPress = {() => navigation.navigate('Manager Screen')}>
+            <Text style = {styles.loginText}> Manager Screen </Text>
         </TouchableOpacity>
     </View>
   );
