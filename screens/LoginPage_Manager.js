@@ -6,10 +6,16 @@ import { useNavigation } from "@react-navigation/native";
 const EmpLoginScreen = () => {
   const navigation = useNavigation(); 
   const { register, handleSubmit, setValue } = useForm();
+
+
   const onSubmit = useCallback(formData => {
-    console.log(formData);
+    console.log("data send: " + formData);
     
+<<<<<<< HEAD
     fetch('http://localhost:5000/login/employee', {
+=======
+    fetch('http://localhost:5000/login/manager', {
+>>>>>>> 82215c05b844ceb709a5876371775eb5e34c66ca
       method: 'POST', 
       headers: {
         Accept: 'application/json', 
@@ -17,16 +23,21 @@ const EmpLoginScreen = () => {
       }, 
       body: JSON.stringify(formData)
     })
-    .then(res=>res.json())
     .then(response => {
+      console.log("response: " + response);
       if (response.status === 200) {
         console.log("Response is 200")
+<<<<<<< HEAD
         navigation.navigate('Customer Screen'); 
+=======
+        navigation.navigate('Manager Screen');
+>>>>>>> 82215c05b844ceb709a5876371775eb5e34c66ca
         return response.json(); 
       }
     })
-
+  
   }, []);
+
   const onChangeField = useCallback(
     name => text => {
       setValue(name, text);
@@ -35,7 +46,7 @@ const EmpLoginScreen = () => {
   );
 
   useEffect(() => {
-    register('username');
+    register('id');
     register('password');
 
   }, [register]);
@@ -46,9 +57,9 @@ const EmpLoginScreen = () => {
         <View style = {styles.inputView}>
           <TextInput 
               style = {styles.inputText}
-              placeholder = "Username"
+              placeholder = "employee id"
               placeholderTextColor = "#003f5c"
-              onChangeText = {onChangeField('username')}
+              onChangeText = {onChangeField('id')}
           />
         </View>
 

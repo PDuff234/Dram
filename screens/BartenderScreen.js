@@ -33,12 +33,20 @@ const BartenderHome = () => {
           </tr>
         </thead>
         <tbody>
+<<<<<<< HEAD
           {orders.map((order) => (
+=======
+          {orders.map(order => (
+>>>>>>> 82215c05b844ceb709a5876371775eb5e34c66ca
             <tr key={order.transactionid}>
               <td>{order.transactionid}</td>
               <td>{order.customer}</td>
               <td>{order.cocktail}</td>
+<<<<<<< HEAD
               <td>{order.hasbeenserved}</td>
+=======
+              <td>{order.instructions}</td>
+>>>>>>> 82215c05b844ceb709a5876371775eb5e34c66ca
             </tr>
           ))}
         </tbody>

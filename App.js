@@ -5,17 +5,33 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack'; 
 import { Button, StyleSheet, Text, View, Image, TextInput } from 'react-native';
 
+<<<<<<< HEAD
 import CustomerHome from './screens/CustomerScreen';
+=======
+//replacement for cuostomer home screen
+>>>>>>> 82215c05b844ceb709a5876371775eb5e34c66ca
 import ListingData from './components/GetReq';
+
+import CustHomeScreen from './screens/CustomerScreen';
 import BartenderHome from './screens/BartenderScreen';
+<<<<<<< HEAD
 
 import CustSignUp from './screens/SignUpPage_Customer';
 import EmpSignUp from './screens/LoginPage_Manager';
+=======
+import ManagerHome from './screens/ManagerScreen';
+
+import CustSignUp from './screens/SignUpPage_Customer';
+import EmpSignUp from './screens/SignUpPage_Manager';
+>>>>>>> 82215c05b844ceb709a5876371775eb5e34c66ca
 import BarSignUp from './screens/SignUpPage_Bartender';
 
 import EmpLoginScreen from './screens/LoginPage_Manager';
 import BarLoginScreen from './screens/LoginPage_Bartender';
 import CustLoginScreen from './screens/LoginPage_Customer';
+
+
+
 
 function HomeScreen({ navigation }) {
   return (
@@ -40,6 +56,7 @@ function HomeScreen({ navigation }) {
           title="Customer Login"
           onPress={() => navigation.navigate('Customer Login')}
         />
+        
     </View>
   );
 }
@@ -68,10 +85,10 @@ function CustomerLoginScreen() {
   );
 }
 
-function EmployeeScreen() {
+function ManagerScreen() {
   return (
     <View style = {styles.container}>
-
+      <ManagerHome />
     </View>
   ); 
 }
@@ -129,7 +146,7 @@ export default function App() {
         <Stack.Screen name="Employee Sign Up" component={EmpSignUpPage} />
         <Stack.Screen name="Bartender Sign Up" component={BarSignUpPage} />
         <Stack.Screen name="Customer Sign Up" component={CustSignUpPage} />
-        <Stack.Screen name="Employee Screen" component={EmployeeScreen} />
+        <Stack.Screen name="Manager Screen" component={ManagerScreen} />
         <Stack.Screen name="Bartender Screen" component={BartenderScreen} />
         <Stack.Screen name="Customer Screen" component={CustomerScreen} />
       </Stack.Navigator>

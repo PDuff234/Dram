@@ -6,8 +6,10 @@ import { useNavigation } from "@react-navigation/native";
 const CustLoginScreen = () => {
   const navigation = useNavigation(); 
   const { register, handleSubmit, setValue } = useForm();
+
+
   const onSubmit = useCallback(formData => {
-    console.log(formData);
+    console.log("data send: " + formData);
     
     fetch('http://localhost:5000/login/customer', {
       method: 'POST', 
@@ -17,16 +19,20 @@ const CustLoginScreen = () => {
       }, 
       body: JSON.stringify(formData)
     })
-    .then(res=>res.json())
     .then(response => {
+      console.log("response: " + response);
       if (response.status === 200) {
         console.log("Response is 200")
         navigation.navigate('Customer Screen');
+<<<<<<< HEAD
         return response.json();  
+=======
+        return response.json(); 
+>>>>>>> 82215c05b844ceb709a5876371775eb5e34c66ca
       }
     })
-
   }, []);
+
   const onChangeField = useCallback(
     name => text => {
       setValue(name, text);

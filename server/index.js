@@ -4,6 +4,7 @@ const cors = require("cors");
 const pool = require("./db");
 //const { pipeline } = require("stream");
 
+
 //middleware
 app.use(cors());
 app.use(express.json());
@@ -38,7 +39,7 @@ app.get("/menu/:name", async(req, res) => {
 //get all inventory
 app.get("/inventory", async(req, res) => {
     try {
-        const inventory = await pool.query("SELECT Type, Name, Quantity FROM Inventory ORDER BY Type");
+        const inventory = await pool.query("SELECT Name, Quantity, Type FROM Inventory ORDER BY Type");
 
         res.json(inventory.rows);
     } catch (err) {
@@ -72,7 +73,7 @@ app.get("/employees", async(req, res) => {
 app.get("/orders", async(req, res) => {
     try {
         const orders = await pool.query(
-            "SELECT * FROM Orders"
+            "SELECT TransactionID, Customer, Cocktail, Instructions FROM (SELECT * FROM Orders) AS o INNER JOIN Cocktails AS c ON o.cocktail = c.name"
         );
 
         res.json(orders.rows);
@@ -167,14 +168,17 @@ app.put("/order/:id", async(req, res) => {
 app.post("/login/customer", async(req, res) => {
     try {
         const { username, password } = req.body;
-        userInput = [username, password];
+        const userInput = [username, password];
         const verifyLogin = await pool.query(
             "SELECT Count(*) FROM customers WHERE username = $1 and password = $2;",
             userInput
         );
-
-        console.log(verifyLogin.rows[0].count);
-        res.json(verifyLogin.rows[0].count);
+        if(verifyLogin.rows[0].count == 1){
+            res.status(200).send("OK");
+        } 
+        else{
+            res.status(400).send("Not valid credentials");
+        }
     } catch (err) {
         console.error(err.message);
     }
@@ -182,21 +186,53 @@ app.post("/login/customer", async(req, res) => {
 
 
 //employee login verification
-app.post("/login/employee", async(req, res) => {
+app.post("/login/manager", async(req, res) => {
     try {
-        const { id, password } = req.body;
-        userInput = [id, password];
+        const { id, password} = req.body;
+        const userInput = [id, password];
         const verifyLogin = await pool.query(
-            "SELECT Count(*) FROM employees WHERE employeeid = $1 and password = $2;",
+            "SELECT title FROM employees WHERE employeeid = $1 and password = $2;",
             userInput
         );
-
-        console.log(verifyLogin.rows[0].count);
-        res.json(verifyLogin.rows[0].count);
+        console.log(verifyLogin.rows[0].title);
+        let result = (verifyLogin.rows[0].title).toLowerCase();
+        if(result == 'm'){
+            console.log("manager logged in");
+            res.status(200).send("OK");
+        } 
+        else{
+            console.log("manager didn't logged in");
+            res.status(400).send("Not valid credentials");
+        }
     } catch (err) {
         console.error(err.message);
     }
 });
+
+//employee login verification
+app.post("/login/bartender", async(req, res) => {
+    try {
+        const { id, password} = req.body;
+        const userInput = [id, password];
+        const verifyLogin = await pool.query(
+            "SELECT Count(*) FROM employees WHERE employeeid = $1 and password = $2;",
+            userInput
+        );
+        console.log(verifyLogin.rows[0].count);
+        if(verifyLogin.rows[0].count == 1){
+            console.log("employee logged in");
+            res.status(200).send("OK");
+        } 
+        else{
+            console.log("employee didn't logged in");
+            res.status(400).send("Not valid credentials");
+        }
+    } catch (err) {
+        console.error(err.message);
+    }
+});
+
+
 
 //add items to inventory
 app.post("/inventory/add", async(req, res) => {
@@ -207,7 +243,7 @@ app.post("/inventory/add", async(req, res) => {
             [name, amount]
         );
 
-        res.json(amount);
+        res.status(400).send("OK");
     } catch (err) {
         console.error(err.message);
     }
