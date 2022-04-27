@@ -12,11 +12,7 @@ const BarLoginScreen = () => {
   const onSubmit = useCallback(formData => {
     console.log("data send: " + formData);
     
-<<<<<<< HEAD
-    fetch('http://localhost:5000/login/employee', {
-=======
     fetch('http://localhost:5000/login/bartender', {
->>>>>>> 82215c05b844ceb709a5876371775eb5e34c66ca
       method: 'POST', 
       headers: {
         Accept: 'application/json', 
@@ -28,11 +24,7 @@ const BarLoginScreen = () => {
       console.log("response: " + response);
       if (response.status === 200) {
         console.log("Response is 200")
-<<<<<<< HEAD
-        navigation.navigate('Bartender Screen'); 
-=======
         navigation.navigate('Bartender Screen');
->>>>>>> 82215c05b844ceb709a5876371775eb5e34c66ca
         return response.json(); 
       }
     })
