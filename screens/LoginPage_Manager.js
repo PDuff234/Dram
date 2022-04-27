@@ -9,7 +9,7 @@ const EmpLoginScreen = () => {
   const onSubmit = useCallback(formData => {
     console.log(formData);
     
-    fetch('http://localhost:5000/login/customer', {
+    fetch('http://localhost:5000/login/employee', {
       method: 'POST', 
       headers: {
         Accept: 'application/json', 
@@ -21,8 +21,8 @@ const EmpLoginScreen = () => {
     .then(response => {
       if (response.status === 200) {
         console.log("Response is 200")
-        return response.json(); 
         navigation.navigate('Customer Screen'); 
+        return response.json(); 
       }
     })
 
@@ -37,6 +37,7 @@ const EmpLoginScreen = () => {
   useEffect(() => {
     register('username');
     register('password');
+
   }, [register]);
 
   return (

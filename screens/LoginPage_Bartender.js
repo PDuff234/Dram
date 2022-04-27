@@ -9,7 +9,7 @@ const BarLoginScreen = () => {
   const onSubmit = useCallback(formData => {
     console.log(formData);
     
-    fetch('http://localhost:5000/login/customer', {
+    fetch('http://localhost:5000/login/employee', {
       method: 'POST', 
       headers: {
         Accept: 'application/json', 
@@ -21,8 +21,8 @@ const BarLoginScreen = () => {
     .then(response => {
       if (response.status === 200) {
         console.log("Response is 200")
+        navigation.navigate('Bartender Screen'); 
         return response.json(); 
-        navigation.navigate('Customer Screen'); 
       }
     })
 
@@ -69,8 +69,8 @@ const BarLoginScreen = () => {
             <Text style = {styles.loginText}> Login </Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style = {styles.loginBtn} onPress = {() => navigation.navigate('Customer Screen')}>
-            <Text style = {styles.loginText}> Customer Screen </Text>
+        <TouchableOpacity style = {styles.loginBtn} onPress = {() => navigation.navigate('Bartender Screen')}>
+            <Text style = {styles.loginText}> Bartender Screen </Text>
         </TouchableOpacity>
     </View>
   );

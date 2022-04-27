@@ -4,13 +4,16 @@ import { StatusBar } from 'expo-status-bar';
 import { NavigationContainer } from '@react-navigation/native'; 
 import { createNativeStackNavigator } from '@react-navigation/native-stack'; 
 import { Button, StyleSheet, Text, View, Image, TextInput } from 'react-native';
+
 import CustomerHome from './screens/CustomerScreen';
 import ListingData from './components/GetReq';
 import BartenderHome from './screens/BartenderScreen';
+
 import CustSignUp from './screens/SignUpPage_Customer';
-import EmpSignUp from './screens/SignUpPage_Employee';
+import EmpSignUp from './screens/LoginPage_Manager';
 import BarSignUp from './screens/SignUpPage_Bartender';
-import EmpLoginScreen from './screens/LoginPage_Employee';
+
+import EmpLoginScreen from './screens/LoginPage_Manager';
 import BarLoginScreen from './screens/LoginPage_Bartender';
 import CustLoginScreen from './screens/LoginPage_Customer';
 
@@ -76,7 +79,7 @@ function EmployeeScreen() {
 function BartenderScreen() {
   return (
     <View style = {styles.container}>
-
+      <BartenderHome />
     </View>
   ); 
 }

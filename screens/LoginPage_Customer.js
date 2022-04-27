@@ -21,8 +21,8 @@ const CustLoginScreen = () => {
     .then(response => {
       if (response.status === 200) {
         console.log("Response is 200")
-        return response.json(); 
-        navigation.navigate('Customer Screen'); 
+        navigation.navigate('Customer Screen');
+        return response.json();  
       }
     })
 
