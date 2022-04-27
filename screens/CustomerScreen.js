@@ -1,6 +1,4 @@
 import React, { Fragment, useEffect, useState } from "react";
-import { StyleSheet, View, ScrollView } from "react-native";
-import { Table, TableWrapper, Row } from 'react-native-table-component'; 
 import { useNavigation } from "@react-navigation/native";
 
 const CustomerHome = () => {
@@ -54,34 +52,33 @@ const CustomerHome = () => {
   console.log(drinks);
 
   return (
-    <View style = {styles.container}>
-        
-    </View>
+    <Fragment>
+      {" "}
+      <table className="table mt-5 text-center">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          {drinks.map(drink => (
+            <tr key={drink.name}>
+              <td>{drink.name}</td>
+              <td>{drink.description}</td>
+              <td>{drink.price}</td>
+              <td>
+              <button className="orderButton" onClick={() => orderDrink(drink.name, drink.price)}>
+                Order this Drink
+              </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </Fragment>
   );
 };
-
-const styles = StyleSheet.create({
-    container: { 
-      flex: 1, 
-      padding: 16, 
-      paddingTop: 30, 
-      backgroundColor: '#ffffff' 
-    },
-    head: { 
-      height: 50, 
-      backgroundColor: '#6F7BD9' 
-    },
-    text: { 
-      textAlign: 'center', 
-      fontWeight: '200' 
-    },
-    dataWrapper: { 
-      marginTop: -1 
-    },
-    row: { 
-      height: 40, 
-      backgroundColor: '#F7F8FA' 
-    }
-  });
 
 export default CustomerHome;

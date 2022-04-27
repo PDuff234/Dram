@@ -7,9 +7,10 @@ const BarSignUp = () => {
   const navigation = useNavigation(); 
   const { register, handleSubmit, setValue } = useForm();
   const onSubmit = useCallback(formData => {
+    formData.title = 'B'; 
     console.log(formData);
     
-    fetch('http://localhost:5000/register', {
+    fetch('http://localhost:5000/register/employee', {
       method: 'POST', 
       headers: {
         Accept: 'application/json', 
@@ -17,6 +18,15 @@ const BarSignUp = () => {
       }, 
       body: JSON.stringify(formData)
     })
+    .then(response => {
+      console.log("response: " + response);
+      if (response.status === 200) {
+        console.log("Response is 200")
+        navigation.navigate('Bartender Screen');
+        return response.json(); 
+      }
+    })
+
   }, []);
   const onChangeField = useCallback(
     name => text => {
@@ -28,8 +38,9 @@ const BarSignUp = () => {
   useEffect(() => {
     register('fname'); 
     register('lname'); 
-    register('username');
+    //register('username');
     register('password');
+    register('title'); 
   }, [register]);
 
   return (
@@ -52,14 +63,14 @@ const BarSignUp = () => {
           />
         </View>
 
-        <View style = {styles.inputView}>
+        {/* <View style = {styles.inputView}>
           <TextInput 
               style = {styles.inputText}
-              placeholder = "Employee ID"
+              placeholder = "Username"
               placeholderTextColor = "#003f5c"
               onChangeText = {onChangeField('username')}
           />
-        </View>
+        </View> */}
 
         <View style = {styles.inputView}>
           <TextInput 

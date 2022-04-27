@@ -72,7 +72,7 @@ const CustLoginScreen = () => {
         </TouchableOpacity>
 
         <TouchableOpacity style = {styles.loginBtn} onPress = {() => navigation.navigate('Customer Screen')}>
-            <Text style = {styles.loginText}> Customer Screen </Text>
+            <Text style = {styles.loginText}> Continue as Guest </Text>
         </TouchableOpacity>
     </View>
   );

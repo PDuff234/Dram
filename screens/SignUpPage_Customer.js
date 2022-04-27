@@ -9,7 +9,7 @@ const CustSignUp = () => {
   const onSubmit = useCallback(formData => {
     console.log(formData);
     
-    fetch('http://localhost:5000/register', {
+    fetch('http://localhost:5000/register/customer', {
       method: 'POST', 
       headers: {
         Accept: 'application/json', 

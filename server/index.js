@@ -118,7 +118,22 @@ app.get("/supplies/orders", async(req, res) => {
 });
 
 //register user
-app.post("/register", async(req, res) => {
+app.post("/register/employee", async(req, res) => {
+    try {
+        const { fname, lname, password, title } = req.body;
+        const newUser = await pool.query(
+            "INSERT INTO Employees (Fname, Lname, Password, Title) VALUES ($1, $2, $3, $4)",
+            [fname, lname, password, title]
+        );
+        
+        res.json(newUser);
+    } catch (err) {
+        console.error(err.message);
+    }
+});
+
+//register user
+app.post("/register/customer", async(req, res) => {
     try {
         const { fname, lname, username, password } = req.body;
         const newUser = await pool.query(
