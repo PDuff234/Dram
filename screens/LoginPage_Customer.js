@@ -23,9 +23,14 @@ const CustLoginScreen = () => {
       console.log("response: " + response);
       if (response.status === 200) {
         console.log("Response is 200")
-        navigation.navigate('Customer Screen');
         return response.json(); 
       }
+    })
+    .then(uid =>{
+      //store user in browser
+      console.log(uid);
+      sessionStorage.setItem('user', uid);
+      navigation.navigate('Customer Screen');
     })
   }, []);
 

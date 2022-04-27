@@ -151,11 +151,11 @@ app.post("/makeOrder", async(req, res) => {
 //update order when served
 app.put("/order/:id", async(req, res) => {
     try {
-        const { id } = req.params;
-        const { servedBy } = req.body;
+        const {transactionID, serverdBy } = req.params;
+        const userInput = [transactionID, serverdBy]
         const updateOrder = await pool.query(
-            "UPDATE Orders SET hasbeenserved = $1, ServedBy = $2 WHERE TransactionID = $3",
-            ["Y", servedBy, id]
+            "UPDATE Orders SET hasbeenserved = 'Y', ServedBy = $2 WHERE TransactionID = $3",
+            userInput
         );
 
         res.json(updateOrder);
@@ -170,11 +170,12 @@ app.post("/login/customer", async(req, res) => {
         const { username, password } = req.body;
         const userInput = [username, password];
         const verifyLogin = await pool.query(
-            "SELECT Count(*) FROM customers WHERE username = $1 and password = $2;",
+            "SELECT username, memberID FROM customers WHERE username = $1 and password = $2;",
             userInput
         );
-        if(verifyLogin.rows[0].count == 1){
-            res.status(200).send("OK");
+        if(verifyLogin.rows[0].username == username){
+            console.log(verifyLogin.rows[0].memberid)
+            res.status(200).send(JSON.stringify(verifyLogin.rows[0].memberid));
         } 
         else{
             res.status(400).send("Not valid credentials");
@@ -184,21 +185,21 @@ app.post("/login/customer", async(req, res) => {
     }
 });
 
-
 //employee login verification
 app.post("/login/manager", async(req, res) => {
     try {
         const { id, password} = req.body;
         const userInput = [id, password];
         const verifyLogin = await pool.query(
-            "SELECT title FROM employees WHERE employeeid = $1 and password = $2;",
+            "SELECT title, employeeid FROM employees WHERE employeeid = $1 and password = $2;",
             userInput
         );
         console.log(verifyLogin.rows[0].title);
         let result = (verifyLogin.rows[0].title).toLowerCase();
         if(result == 'm'){
+            let eid = (verifyLogin.rows[0].employeeid);
             console.log("Manager logged in");
-            res.status(200).send("OK");
+            res.status(200).send(JSON.stringify(eid));
         } 
         else{
             console.log("Manager didn't log in");
@@ -215,13 +216,13 @@ app.post("/login/bartender", async(req, res) => {
         const { id, password} = req.body;
         const userInput = [id, password];
         const verifyLogin = await pool.query(
-            "SELECT Count(*) FROM employees WHERE employeeid = $1 and password = $2;",
+            "SELECT employeeID FROM employees WHERE employeeid = $1 and password = $2;",
             userInput
         );
-        console.log(verifyLogin.rows[0].count);
-        if(verifyLogin.rows[0].count == 1){
+        let eid = (verifyLogin.rows[0].employeeid);
+        if(verifyLogin.rows[0].employeeid == id){
             console.log("Employee logged in");
-            res.status(200).send("OK");
+            res.status(200).send(JSON.stringify(eid));
         } 
         else{
             console.log("Employee didn't log in");
@@ -242,8 +243,7 @@ app.post("/inventory/add", async(req, res) => {
             "SELECT addInv($1, $2)",
             [name, amount]
         );
-
-        res.status(400).send("OK");
+        res.status(200).send("OK");
     } catch (err) {
         console.error(err.message);
     }

@@ -5,7 +5,6 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack'; 
 import { Button, StyleSheet, Text, View, Image, TextInput } from 'react-native';
 
-import CustomerHome from './screens/CustomerScreen';
 //replacement for cuostomer home screen
 import ListingData from './components/GetReq';
 
@@ -95,7 +94,7 @@ function BartenderScreen() {
 function CustomerScreen() {
   return (
     <View style = {styles.container}>
-      <ListingData />
+      <CustHomeScreen />
     </View>
   ); 
 }
