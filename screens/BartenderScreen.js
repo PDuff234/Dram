@@ -18,15 +18,14 @@ const BartenderHome = () => {
 
   const completeOrder = async e => {
     try {
-      var payload = { "hasbeenserved": "Y", "servedBy": "12456", "transactionid": e }
+      var payload = { transactionID: e, servedBy:1234 }
       console.log(JSON.stringify(payload)); 
-      const response = await fetch("http://localhost:5000/order/:id", {
+      const response = await fetch("http://localhost:5000/order/id", {
         method: 'PUT', 
         headers: { "Content-Type": "application/json" }, 
         body: JSON.stringify(payload)
       }
       ); 
-      //location.reload(); 
     } catch (err) {
       console.log(err.message); 
     }

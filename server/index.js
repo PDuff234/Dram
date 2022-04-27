@@ -148,6 +148,7 @@ app.post("/makeOrder", async(req, res) => {
     }
 });
 
+/*
 //update order when served
 app.put("/order/:id", async(req, res) => {
     try {
@@ -156,6 +157,24 @@ app.put("/order/:id", async(req, res) => {
         const updateOrder = await pool.query(
             "UPDATE Orders SET hasbeenserved = $1, ServedBy = $2 WHERE TransactionID = $3",
             ["Y", servedBy, id]
+        );
+
+        res.json(updateOrder);
+    } catch (err) {
+        console.error(err.message);
+    }
+});
+*/
+
+//update order when served
+app.put("/order/id", async(req, res) => {
+    try {
+        const { transactionID, servedBy } = req.body;
+        const userInput = [transactionID, servedBy]
+        console.log(JSON.stringify(userInput)); 
+        const updateOrder = await pool.query(
+            "UPDATE Orders SET hasbeenserved = 'Y', servedBy = $1 WHERE TransactionID = $2",
+            userInput
         );
 
         res.json(updateOrder);
