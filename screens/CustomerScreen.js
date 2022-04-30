@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 
-const CustomerHome = () => {
+const ListingData = () => {
   const [drinks, setDrinks] = useState([]);
 
   const getDrinks = async () => {
@@ -19,6 +19,11 @@ const CustomerHome = () => {
     getDrinks();
   }, []);
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> adbef5569410023bf6cda1bce367ce492295f312
   const navigation = useNavigation(); 
   function orderDrink(drink, price){
 
@@ -60,7 +65,11 @@ const CustomerHome = () => {
             <th>Name</th>
             <th>Description</th>
             <th>Price</th>
+<<<<<<< HEAD
             <th>Order this Drink</th>
+=======
+            <th>Order this drink</th>
+>>>>>>> adbef5569410023bf6cda1bce367ce492295f312
           </tr>
         </thead>
         <tbody>
@@ -70,9 +79,15 @@ const CustomerHome = () => {
               <td>{drink.description}</td>
               <td>{drink.price}</td>
               <td>
+<<<<<<< HEAD
               <button className="orderButton" onClick={() => orderDrink(drink.name, drink.price)}>
                 Order this Drink
               </button>
+=======
+                <button className="orderButton" onClick={() => orderDrink(drink.name, drink.price)}>
+                  Order this drink
+                </button>
+>>>>>>> adbef5569410023bf6cda1bce367ce492295f312
               </td>
             </tr>
           ))}
@@ -80,6 +95,16 @@ const CustomerHome = () => {
       </table>
     </Fragment>
   );
+  
 };
 
+<<<<<<< HEAD
 export default CustomerHome;
+=======
+
+
+
+
+
+export default ListingData;
+>>>>>>> adbef5569410023bf6cda1bce367ce492295f312
