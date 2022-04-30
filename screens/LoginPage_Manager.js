@@ -23,12 +23,14 @@ const EmpLoginScreen = () => {
       console.log("response: " + response);
       if (response.status === 200) {
         console.log("Response is 200")
-        navigation.navigate('Manager Screen');
         return response.json(); 
       }
     })
-  
-  }, []);
+    .then(data=>{
+      sessionStorage.setItem("user", data);
+      navigation.navigate('Manager Screen');
+    })
+  });
 
   const onChangeField = useCallback(
     name => text => {
@@ -49,7 +51,7 @@ const EmpLoginScreen = () => {
         <View style = {styles.inputView}>
           <TextInput 
               style = {styles.inputText}
-              placeholder = "Employee ID"
+              placeholder = "employee id"
               placeholderTextColor = "#003f5c"
               onChangeText = {onChangeField('id')}
           />

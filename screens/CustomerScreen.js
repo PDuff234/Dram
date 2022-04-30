@@ -60,6 +60,7 @@ const CustomerHome = () => {
             <th>Name</th>
             <th>Description</th>
             <th>Price</th>
+            <th>Order this Drink</th>
           </tr>
         </thead>
         <tbody>

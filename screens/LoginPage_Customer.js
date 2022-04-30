@@ -23,11 +23,14 @@ const CustLoginScreen = () => {
       console.log("response: " + response);
       if (response.status === 200) {
         console.log("Response is 200")
-        navigation.navigate('Customer Screen');
         return response.json(); 
       }
     })
-  }, []);
+    .then(data=>{
+      sessionStorage.setItem("user", data);
+      navigation.navigate('Customer Screen');
+    })
+  });
 
   const onChangeField = useCallback(
     name => text => {
@@ -72,7 +75,7 @@ const CustLoginScreen = () => {
         </TouchableOpacity>
 
         <TouchableOpacity style = {styles.loginBtn} onPress = {() => navigation.navigate('Customer Screen')}>
-            <Text style = {styles.loginText}> Continue as Guest </Text>
+            <Text style = {styles.loginText}> Customer Screen </Text>
         </TouchableOpacity>
     </View>
   );

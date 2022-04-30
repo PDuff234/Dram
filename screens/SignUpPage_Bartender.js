@@ -26,7 +26,7 @@ const BarSignUp = () => {
         return response.json(); 
       }
     })
-
+    
   }, []);
   const onChangeField = useCallback(
     name => text => {
@@ -38,9 +38,8 @@ const BarSignUp = () => {
   useEffect(() => {
     register('fname'); 
     register('lname'); 
-    //register('username');
     register('password');
-    register('title'); 
+    register('title');
   }, [register]);
 
   return (
@@ -62,15 +61,6 @@ const BarSignUp = () => {
               onChangeText = {onChangeField('lname')}
           />
         </View>
-
-        {/* <View style = {styles.inputView}>
-          <TextInput 
-              style = {styles.inputText}
-              placeholder = "Username"
-              placeholderTextColor = "#003f5c"
-              onChangeText = {onChangeField('username')}
-          />
-        </View> */}
 
         <View style = {styles.inputView}>
           <TextInput 

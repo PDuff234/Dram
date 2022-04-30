@@ -39,7 +39,7 @@ app.get("/menu/:name", async(req, res) => {
 //get all inventory
 app.get("/inventory", async(req, res) => {
     try {
-        const inventory = await pool.query("SELECT Name, Quantity, Type FROM Inventory ORDER BY Type");
+        const inventory = await pool.query("SELECT Name, Quantity, Type FROM Inventory ORDER BY Type, name");
 
         res.json(inventory.rows);
     } catch (err) {
@@ -117,6 +117,37 @@ app.get("/supplies/orders", async(req, res) => {
     }
 });
 
+//create an order
+app.post("/makeSupplyOrder", async(req, res) => {
+    try {
+        const { orderedBy, itemOrdered, supplierName, quant } = req.body;
+        const supplyOrder = [itemOrdered, supplierName]
+        console.log(supplyOrder);
+        const newOrder = await pool.query(
+            "SELECT price FROM supplies WHERE name = $1 AND supplierName = $2;",
+            supplyOrder
+        );
+        console.log(newOrder);
+        let price = newOrder.rows[0].price;
+
+        //calculate total
+        const total = price * quant;
+        console.log(total)
+
+        //insert order
+        await pool.query(
+            "INSERT INTO suppliesOrders(orderedby, itemordered, suppliername, quantity, total) VALUES($1, $2, $3, $4, $5)",
+            [orderedBy, itemOrdered, supplierName, quant, total]
+        );
+
+        console.log("inserted Order")
+
+        res.json(newOrder);
+    } catch (err) {
+        console.error(err.message);
+    }
+});
+
 //register user
 app.post("/register/employee", async(req, res) => {
     try {
@@ -163,35 +194,19 @@ app.post("/makeOrder", async(req, res) => {
     }
 });
 
-/*
-//update order when served
-app.put("/order/:id", async(req, res) => {
-    try {
-        const { id } = req.params;
-        const { servedBy } = req.body;
-        const updateOrder = await pool.query(
-            "UPDATE Orders SET hasbeenserved = $1, ServedBy = $2 WHERE TransactionID = $3",
-            ["Y", servedBy, id]
-        );
-
-        res.json(updateOrder);
-    } catch (err) {
-        console.error(err.message);
-    }
-});
-*/
 
 //update order when served
 app.put("/order/id", async(req, res) => {
     try {
         const { transactionID, servedBy } = req.body;
-        const userInput = [transactionID, servedBy]
-        console.log(JSON.stringify(userInput)); 
+        const userInput = [parseInt(servedBy, 10), parseInt(transactionID, 10)]
+        console.log(JSON.stringify(userInput));
         const updateOrder = await pool.query(
             "UPDATE Orders SET hasbeenserved = 'Y', servedBy = $1 WHERE TransactionID = $2",
             userInput
         );
 
+        console.log(updateOrder);
         res.json(updateOrder);
     } catch (err) {
         console.error(err.message);
@@ -201,14 +216,16 @@ app.put("/order/id", async(req, res) => {
 //customer login verification
 app.post("/login/customer", async(req, res) => {
     try {
+        console.log("customer tries logging in")
         const { username, password } = req.body;
         const userInput = [username, password];
         const verifyLogin = await pool.query(
-            "SELECT Count(*) FROM customers WHERE username = $1 and password = $2;",
+            "SELECT username, memberID FROM customers WHERE username = $1 and password = $2;",
             userInput
         );
-        if(verifyLogin.rows[0].count == 1){
-            res.status(200).send("OK");
+        if(verifyLogin.rows[0].username == username){
+            console.log(verifyLogin.rows[0].memberid)
+            res.status(200).send(JSON.stringify(verifyLogin.rows[0].memberid));
         } 
         else{
             res.status(400).send("Not valid credentials");
@@ -218,21 +235,21 @@ app.post("/login/customer", async(req, res) => {
     }
 });
 
-
 //employee login verification
 app.post("/login/manager", async(req, res) => {
     try {
         const { id, password} = req.body;
         const userInput = [id, password];
         const verifyLogin = await pool.query(
-            "SELECT title FROM employees WHERE employeeid = $1 and password = $2;",
+            "SELECT title, employeeid FROM employees WHERE title = 'M' and employeeid = $1 and password = $2;",
             userInput
         );
         console.log(verifyLogin.rows[0].title);
         let result = (verifyLogin.rows[0].title).toLowerCase();
         if(result == 'm'){
+            let eid = (verifyLogin.rows[0].employeeid);
             console.log("Manager logged in");
-            res.status(200).send("OK");
+            res.status(200).send(JSON.stringify(eid));
         } 
         else{
             console.log("Manager didn't log in");
@@ -249,13 +266,13 @@ app.post("/login/bartender", async(req, res) => {
         const { id, password} = req.body;
         const userInput = [id, password];
         const verifyLogin = await pool.query(
-            "SELECT Count(*) FROM employees WHERE employeeid = $1 and password = $2;",
+            "SELECT employeeID FROM employees WHERE employeeid = $1 and password = $2;",
             userInput
         );
-        console.log(verifyLogin.rows[0].count);
-        if(verifyLogin.rows[0].count == 1){
+        let eid = (verifyLogin.rows[0].employeeid);
+        if(verifyLogin.rows[0].employeeid == id){
             console.log("Employee logged in");
-            res.status(200).send("OK");
+            res.status(200).send(JSON.stringify(eid));
         } 
         else{
             console.log("Employee didn't log in");
@@ -272,11 +289,10 @@ app.post("/login/bartender", async(req, res) => {
 app.post("/inventory/add", async(req, res) => {
     try {
         const { name, amount } = req.body;
-        const addInv = await pool.query(
+        await pool.query(
             "SELECT addInv($1, $2)",
             [name, amount]
         );
-
         res.status(200).send("OK");
     } catch (err) {
         console.error(err.message);
@@ -287,7 +303,7 @@ app.post("/inventory/add", async(req, res) => {
 app.post("/inventory/sub", async(req, res) => {
     try {
         const { name, amount } = req.body;
-        const subInv = await pool.query(
+        await pool.query(
             "SELECT subInv($1, $2)",
             [name, amount]
         );

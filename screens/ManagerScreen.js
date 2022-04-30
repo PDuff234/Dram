@@ -17,16 +17,20 @@ const ManagerHome = () => {
     }
   };
 
-  const addInventory = async e => {
+  function makeSupplyOrder(itemName) {
     try {
-      var payload = { "name": e, "amount": quantity }
+      var payload = { orderedBy: sessionStorage.getItem("user"),
+                      itemOrdered: itemName,
+                      supplierName: 'Bobs Liquor',
+                      quant: quantity
+                    }
+
       console.log(JSON.stringify(payload)); 
-      const response = await fetch("http://localhost:5000/inventory/add", {
+       fetch("http://localhost:5000/makeSupplyOrder", {
         method: 'POST', 
         headers: { Accept: "application/json", "Content-Type": "application/json" }, 
         body: JSON.stringify(payload)
-      }
-      ); 
+      }); 
 
       navigation.push('Manager Screen'); 
     } catch (err) {
@@ -37,14 +41,13 @@ const ManagerHome = () => {
   const subInventory = async e => {
     try {
       var payload = { "name": e, "amount": quantity }
+
       console.log(JSON.stringify(payload)); 
-      const response = await fetch("http://localhost:5000/inventory/sub", {
+      await fetch("http://localhost:5000/inventory/sub", {
         method: 'POST', 
         headers: { "Content-Type": "application/json" }, 
         body: JSON.stringify(payload)
-      }
-      ); 
-
+      }); 
       navigation.push('Manager Screen'); 
     } catch (err) {
       console.log(err.message); 
@@ -61,6 +64,7 @@ const ManagerHome = () => {
     <Fragment>
       {" "}
       <table className="table mt-5 text-center">
+
         <thead>
           <tr>
             <th>Name</th>
@@ -81,7 +85,7 @@ const ManagerHome = () => {
                 <input type="number" value={quantity} onChange={(e) => SetQuantity(e.target.value)} />
               </td>
               <td>
-                <button className="primary" onClick={() => addInventory(item.name)}>
+                <button className="primary" onClick={() => makeSupplyOrder(item.name)}>
                   Add
                 </button>
               </td>

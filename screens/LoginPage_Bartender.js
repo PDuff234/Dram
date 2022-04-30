@@ -24,13 +24,14 @@ const BarLoginScreen = () => {
       console.log("response: " + response);
       if (response.status === 200) {
         console.log("Response is 200")
-        navigation.navigate('Bartender Screen');
         return response.json(); 
       }
     })
-    
-
-  }, []);
+    .then(data=>{
+      sessionStorage.setItem("user", data);
+      navigation.navigate('Bartender Screen');
+    })
+  });
 
   const onChangeField = useCallback(
     name => text => {

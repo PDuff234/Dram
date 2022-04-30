@@ -1,10 +1,8 @@
 import React, { useEffect, useCallback, Fragment } from 'react';
 import { View, TextInput, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { useForm } from 'react-hook-form';
-import { useNavigation } from "@react-navigation/native"; 
 
 const CustSignUp = () => {
-  const navigation = useNavigation(); 
   const { register, handleSubmit, setValue } = useForm();
   const onSubmit = useCallback(formData => {
     console.log(formData);
@@ -16,6 +14,13 @@ const CustSignUp = () => {
         'Content-Type': 'application/json'
       }, 
       body: JSON.stringify(formData)
+    })
+    .then(response => {
+      console.log("response: " + response);
+      if (response.status === 200) {
+        console.log("Response is 200")
+        return response.json(); 
+      }
     })
   }, []);
   const onChangeField = useCallback(

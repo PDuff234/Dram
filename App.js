@@ -5,7 +5,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack'; 
 import { Button, StyleSheet, Text, View, Image, TextInput } from 'react-native';
 
-import CustomerHome from './screens/CustomerScreen';
+
+import CustHomeScreen from './screens/CustomerScreen';
 import BartenderHome from './screens/BartenderScreen';
 import ManagerHome from './screens/ManagerScreen'; 
 
@@ -91,7 +92,7 @@ function BartenderScreen() {
 function CustomerScreen() {
   return (
     <View style = {styles.container}>
-      <CustomerHome />
+      <CustHomeScreen />
     </View>
   ); 
 }

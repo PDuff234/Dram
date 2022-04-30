@@ -19,14 +19,19 @@ const BartenderHome = () => {
 
   const completeOrder = async e => {
     try {
-      var payload = { transactionID: e, servedBy: sessionStorage.getItem("user") }
+
+      var payload = {
+        transactionID: e,
+        servedBy:sessionStorage.getItem("user")
+      }
+
       console.log(JSON.stringify(payload)); 
-      const response = await fetch("http://localhost:5000/order/id", {
+      await fetch("http://localhost:5000/order/id", {
         method: 'PUT', 
         headers: { "Content-Type": "application/json" }, 
         body: JSON.stringify(payload)
-      }
-      ); 
+      })
+      .then(navigation.push("Bartender Screen"));
     } catch (err) {
       console.log(err.message); 
     }

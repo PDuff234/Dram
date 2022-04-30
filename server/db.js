@@ -6,7 +6,7 @@ const pool = new Pool({
     host: "bar-project.c7bm0qevzxgt.us-east-1.rds.amazonaws.com", 
     port: "5430", 
     database: "barProject"
-}); 
+});
 
 /*
 //Testing code to see if we can get a response from server

@@ -1,13 +1,11 @@
 import React, { useEffect, useCallback, Fragment } from 'react';
 import { View, TextInput, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { useForm } from 'react-hook-form';
-import { useNavigation } from "@react-navigation/native"; 
 
 const EmpSignUp = () => {
-  const navigation = useNavigation(); 
   const { register, handleSubmit, setValue } = useForm();
   const onSubmit = useCallback(formData => {
-    formData.title = 'M'; 
+    formData.title = 'm'
     console.log(formData);
     
     fetch('http://localhost:5000/register/employee', {
@@ -18,14 +16,6 @@ const EmpSignUp = () => {
       }, 
       body: JSON.stringify(formData)
     })
-    .then(response => {
-      console.log("response: " + response);
-      if (response.status === 200) {
-        console.log("Response is 200")
-        return response.json(); 
-      }
-    })
-
   }, []);
   const onChangeField = useCallback(
     name => text => {
@@ -37,9 +27,8 @@ const EmpSignUp = () => {
   useEffect(() => {
     register('fname'); 
     register('lname'); 
-    //register('username');
     register('password');
-    register('title'); 
+    register('title');
   }, [register]);
 
   return (
@@ -61,16 +50,7 @@ const EmpSignUp = () => {
               onChangeText = {onChangeField('lname')}
           />
         </View>
-        
-        {/* <View style = {styles.inputView}>
-          <TextInput 
-              style = {styles.inputText}
-              placeholder = "Username"
-              placeholderTextColor = "#003f5c"
-              onChangeText = {onChangeField('username')}
-          />
-        </View> */}
-        
+
         <View style = {styles.inputView}>
           <TextInput 
               style = {styles.inputText}
