@@ -26,13 +26,6 @@ const CustLoginScreen = () => {
         return response.json(); 
       }
     })
-<<<<<<< HEAD
-    .then(data=>{
-      sessionStorage.setItem("user", data);
-      navigation.navigate('Customer Screen');
-    })
-  });
-=======
     .then(uid =>{
       //store user in browser
       console.log(uid);
@@ -40,7 +33,6 @@ const CustLoginScreen = () => {
       navigation.navigate('Customer Screen');
     })
   }, []);
->>>>>>> adbef5569410023bf6cda1bce367ce492295f312
 
   const onChangeField = useCallback(
     name => text => {

@@ -19,11 +19,6 @@ const ListingData = () => {
     getDrinks();
   }, []);
 
-<<<<<<< HEAD
-=======
-
-
->>>>>>> adbef5569410023bf6cda1bce367ce492295f312
   const navigation = useNavigation(); 
   function orderDrink(drink, price){
 
@@ -65,11 +60,7 @@ const ListingData = () => {
             <th>Name</th>
             <th>Description</th>
             <th>Price</th>
-<<<<<<< HEAD
             <th>Order this Drink</th>
-=======
-            <th>Order this drink</th>
->>>>>>> adbef5569410023bf6cda1bce367ce492295f312
           </tr>
         </thead>
         <tbody>
@@ -79,15 +70,9 @@ const ListingData = () => {
               <td>{drink.description}</td>
               <td>{drink.price}</td>
               <td>
-<<<<<<< HEAD
               <button className="orderButton" onClick={() => orderDrink(drink.name, drink.price)}>
                 Order this Drink
               </button>
-=======
-                <button className="orderButton" onClick={() => orderDrink(drink.name, drink.price)}>
-                  Order this drink
-                </button>
->>>>>>> adbef5569410023bf6cda1bce367ce492295f312
               </td>
             </tr>
           ))}
@@ -98,13 +83,4 @@ const ListingData = () => {
   
 };
 
-<<<<<<< HEAD
-export default CustomerHome;
-=======
-
-
-
-
-
 export default ListingData;
->>>>>>> adbef5569410023bf6cda1bce367ce492295f312
